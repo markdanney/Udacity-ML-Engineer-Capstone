@@ -78,6 +78,8 @@ The problem stated is very similar to the so-called collaborative filtering pers
 
 Model success will be measured by Log Loss, as this metric works well at measuring multi-class classification quality by penalizing erroneous classification based on uncertainty of the predictions. [[3]](#3)
 
+![log loss](/assets/logloss.gif)
+
 In the context of the problem at hand, it pushes the model towards the right money spent prediction per offer/channel.
 
 ## Project design
@@ -99,6 +101,15 @@ Some data wrangling will have to be done;
 - Lastly, the data will be 60-20-20 split into training, validation and testing sets.
 
 The proposed model to be trained is a neural network using the PyTorch libraries, taking in profile features and predicting the best offer and channel combination based on expected money spent. This model is chosen to make the best use of the continuous nature of the offer performance metric (money spent) and to be able to fully personalize the customer experience in stead of predicting target demographics for offers.
+
+Finetuning of the model will be done through automated hyperparameter tuning, tuning the amount of hidden layers and number of neurons, learning rate and epochs. The focus should ideally be on creating a simple feed-forward model in stead of a complicated multi-layer perceptron in order to optimize training and prediction time.
+
+## Discussion
+
+Although this is not in scope for this project, ideally the model should be monitored after deployment:
+- Model performance and automated updating of the model based on new data should be implemented;
+- The technical performance needs to be monitored to be able to serve the many users of the app in a timely and cost-effective fashion
+- Data quality, especially profile data completeness should be kept to a maximum to enable proper predictions. For instance by requiring a birthdate upon registration, checking income data etc.
 
 ## References
 
