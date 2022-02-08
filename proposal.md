@@ -80,9 +80,9 @@ Model success will be measured by Log Loss, as this metric works well at measuri
 
 ![log loss](/assets/logloss.gif)
 
-where
-y_ij, indicates whether sample i belongs to class j or not
-p_ij, indicates the probability of sample i belonging to class j
+where:
+- y_ij indicates whether sample i belongs to class j or not
+- p_ij indicates the probability of sample i belonging to class j
 
 In the context of the problem at hand, it pushes the model towards the right money spent prediction per offer/channel.
 
