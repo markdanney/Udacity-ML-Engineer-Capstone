@@ -79,6 +79,7 @@ The problem stated is very similar to the so-called collaborative filtering pers
 Model success will be measured by Log Loss, as this metric works well at measuring multi-class classification quality by penalizing erroneous classification based on uncertainty of the predictions. [[3]](#3)
 
 ![log loss](/assets/logloss.gif)
+
 where
 y_ij, indicates whether sample i belongs to class j or not
 p_ij, indicates the probability of sample i belonging to class j
