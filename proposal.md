@@ -78,11 +78,11 @@ The problem stated is very similar to the so-called collaborative filtering pers
 
 Model success will be measured by Log Loss, as this metric works well at measuring multi-class classification quality by penalizing erroneous classification based on uncertainty of the predictions. [[3]](#3)
 
-$\frac{-1}{N}$$\sum_{i=1}^{N}$$\sum_{j=1}^{M}$$y_{ij}$$\times$log$(p_{ij})$
+![formula](https://latex.codecogs.com/svg.image?%5Cfrac%7B-1%7D%7BN%7D%5Csum_%7Bi=1%7D%5E%7BN%7D%5Csum_%7Bj=1%7D%5E%7BM%7Dy_%7Bij%7D%5Ctimes%20%5Clog(p_%7Bij%7D))
 
 where:
-- $y_{ij}$ indicates whether sample i belongs to class j or not
-- $p_{ij}$ indicates the probability of sample i belonging to class j
+- y_ij indicates whether sample i belongs to class j or not
+- p_ij indicates the probability of sample i belonging to class j
 
 In the context of the problem at hand, it pushes the model towards the right money spent prediction per offer/channel.
 
