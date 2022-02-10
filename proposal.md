@@ -59,12 +59,15 @@ Event log (306648 events x 4 fields)
   - reward: (numeric) money gained from "offer completed"
 - time: (numeric) hours after start of test
 
+In data exploration, roughly 10% of profiles were found to have missing values for gender, age as well as income. This may be missing data, but it may also be a cultural effect; people not willing to fill in their profile to maintain a sense of anonymity. During training these records will be explored as a group to be kept as their own demography or simply to be discarded.
 
 ## Solution statement
 
 *Student clearly describes a solution to the problem. The solution is applicable to the project domain and appropriate for the dataset(s) or input(s) given. Additionally, the solution is quantifiable, measurable, and replicable.*
 
 The solution should take profile features as input and predict the best offer and channel based on expected money spent. To this end, the input will be put through a preprocessing step to normalize the input and the model output will be presented as a top-n of offer/channel combinations with the expected money spent in reaction to those offers.
+
+This enables the model to be used as an API endpoint for real-time offer selection when a customer is identified in a channel or when an e-mail batch is being sent out.
 
 ## Benchmark model
 
@@ -76,7 +79,9 @@ The problem stated is very similar to the so-called collaborative filtering pers
 
 *Student proposes at least one evaluation metric that can be used to quantify the performance of both the benchmark model and the solution model presented. The evaluation metric(s) proposed are appropriate given the context of the data, the problem statement, and the intended solution.*
 
-Model success will be measured by Log Loss, as this metric works well at measuring multi-class classification quality by penalizing erroneous classification based on uncertainty of the predictions. [[3]](#3)
+Model success will be measured by a combination of Log Loss, as this metric works well at measuring multi-class classification quality by penalizing erroneous classification based on uncertainty of the predictions, and F-1 score to measure the precision and recall. [[3]](#3)
+
+Log loss:
 
 ![formula](https://latex.codecogs.com/svg.image?%5Cfrac%7B-1%7D%7BN%7D%5Csum_%7Bi=1%7D%5E%7BN%7D%5Csum_%7Bj=1%7D%5E%7BM%7Dy_%7Bij%7D%5Ctimes%20%5Clog(p_%7Bij%7D))
 
@@ -86,6 +91,16 @@ where:
 
 In the context of the problem at hand, it pushes the model towards the right money spent prediction per offer/channel.
 
+F-1:
+
+![formula](https://latex.codecogs.com/svg.image?%5Cfrac%7Btp%7D%7Btp%20+%20%5Cfrac%7B1%7D%7B2%7D(fp%20+%20fn)%7D)
+
+where:
+- tp, fp are the number of true resp. false positives
+- tn, fn are the number of true resp. false negatives
+
+Positives and negatives will be measured by the outcome of the neuron, >=0.5 is positive, <0.5 is negative.
+
 ## Project design
 
 *Student summarizes a theoretical workflow for approaching a solution given the problem. Discussion is made as to what strategies may be employed, what analysis of the data might be required, or which algorithms will be considered. The workflow and discussion provided align with the qualities of the project. Small visualizations, pseudocode, or diagrams are encouraged but not required.*
@@ -94,17 +109,17 @@ Some data wrangling will have to be done;
 
 - A 'no-offer' offer will be added to help identify demographics that will buy products even without being influenced by offers.
 - Transactions will be grouped into a new dataset, containing
-  - Time from offer received to offer viewed (if any)
-  - Time from offer viewed to offer completed (if any)
-  - Total money spent between offer viewed and offer completed
-  - Existing features from the profile and portfolio datasets pertaining to the offers and transactions
+  - Time from offer received to offer viewed (if any);
+  - Time from offer viewed to offer completed (if any);
+  - Total money spent between offer viewed and offer completed;
+  - Existing features from the profile and portfolio datasets pertaining to the offers and transactions.
 - Offers that were presented but weren't viewed but nonetheless completed will be set to have no resulting spending; even though customers used the offer, they weren't aware of it and thus it may be concluded the offer did not influence their behavior.
 - Categorical features (gender, channels, offertype, event) will be one-hot encoded.
-- Continuous features (money spent, time to offer viewed/completed, age, account age, income) will be normalized to 0-1 range
+- Continuous features (money spent, time to offer viewed/completed, age, account age, income) will be normalized to 0-1 range.
 - Principal feature analysis will be performed to identify the most relevant features and which features can be safely omitted to simplify the model.
-- Lastly, the data will be 60-20-20 split into training, validation and testing sets.
+- Lastly, the data will be split based on k-fold cross-validation to obtain a better evaluation of the model even with the relatively low number of datapoints in the set. [4](#4)
 
-The proposed model to be trained is a neural network using the PyTorch libraries, taking in profile features and predicting the best offer and channel combination based on expected money spent. This model is chosen to make the best use of the continuous nature of the offer performance metric (money spent) and to be able to fully personalize the customer experience in stead of predicting target demographics for offers.
+The proposed model to be trained is a neural network using the Keras libraries, taking in profile features and predicting the best offer and channel combination based on expected money spent. This model is chosen to make the best use of the continuous nature of the offer performance metric (money spent) and to be able to fully personalize the customer experience in stead of predicting target demographics for offers.
 
 Finetuning of the model will be done through automated hyperparameter tuning, tuning the amount of hidden layers and number of neurons, learning rate and epochs. The focus should ideally be on creating a simple feed-forward model in stead of a complicated multi-layer perceptron in order to optimize training and prediction time.
 
@@ -122,3 +137,5 @@ Although this is not in scope for this project, ideally the model should be moni
 <a id="2">[2]</a> https://medium.com/booking-product/personalization-using-machine-learning-from-data-science-to-user-experience-3b1ef5d23ced
 
 <a id="3">[3]</a> https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234
+
+<a id="4">[4]>/a> https://machinelearningmastery.com/k-fold-cross-validation/
