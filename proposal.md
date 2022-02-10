@@ -117,7 +117,7 @@ Some data wrangling will have to be done;
 - Categorical features (gender, channels, offertype, event) will be one-hot encoded.
 - Continuous features (money spent, time to offer viewed/completed, age, account age, income) will be normalized to 0-1 range.
 - Principal feature analysis will be performed to identify the most relevant features and which features can be safely omitted to simplify the model.
-- Lastly, the data will be split based on k-fold cross-validation to obtain a better evaluation of the model even with the relatively low number of datapoints in the set. [4](#4)
+- Lastly, the data will be split based on k-fold cross-validation to obtain a better evaluation of the model even with the relatively low number of datapoints in the set. [[4]](#4)
 
 The proposed model to be trained is a neural network using the Keras libraries, taking in profile features and predicting the best offer and channel combination based on expected money spent. This model is chosen to make the best use of the continuous nature of the offer performance metric (money spent) and to be able to fully personalize the customer experience in stead of predicting target demographics for offers.
 
