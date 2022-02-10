@@ -138,4 +138,4 @@ Although this is not in scope for this project, ideally the model should be moni
 
 <a id="3">[3]</a> https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234
 
-<a id="4">[4]>/a> https://machinelearningmastery.com/k-fold-cross-validation/
+<a id="4">[4]</a> https://machinelearningmastery.com/k-fold-cross-validation/
