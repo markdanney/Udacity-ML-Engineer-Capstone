@@ -59,7 +59,7 @@ Event log (306648 events x 4 fields)
   - reward: (numeric) money gained from "offer completed"
 - time: (numeric) hours after start of test
 
-In [data exploration](/Starbucks/data-exploration.ipynb), roughly 10% of profiles were found to have missing values for gender, age as well as income. This may be missing data, but it may also be a cultural effect; people not willing to fill in their profile to maintain a sense of anonymity. During training these records will be explored as a group to be kept as their own demography or simply to be discarded.
+In [data exploration](/Starbucks/data-exploration.ipynb), roughly 12% of profiles were found to have missing values for gender, age as well as income. This may be missing data, but it may also be a cultural effect; people not willing to fill in their profile to maintain a sense of anonymity. During training these records will be explored as a group to be kept as their own demography or simply to be discarded.
 
 ## Solution statement
 
